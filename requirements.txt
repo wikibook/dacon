@@ -1,6 +1,6 @@
 jupyter
 notebook
 numpy
-seaborn
+seaborn<=0.11
 scikit-learn
 tqdm
