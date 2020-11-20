@@ -1,0 +1,6 @@
+jupyter
+notebook
+numpy
+seaborn
+scikit-learn
+tqdm
