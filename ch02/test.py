@@ -30,7 +30,7 @@ test_model = test_model.to(device)
 
 # Test dataset을 불러옵니다.
 test_data = TestDataset(path_test)
-test_loader = DataLoader(test_data, batch_size=10000,  num_workers=0)
+test_loader = DataLoader(test_data, batch_size=10000, num_workers=0)
 
 # 테스트 데이터를 불러와서 모델로 결과를 예측하고 그 결과를 파일로 씁니다.
 with torch.no_grad():
@@ -40,8 +40,8 @@ with torch.no_grad():
 pred_test = outputs
 
 sample_sub = pd.read_csv('data/sample_submission.csv', index_col=0)
-layers = ['layer_1','layer_2','layer_3','layer_4']
-submission = sample_sub.values + pred_test.cpu().numpy()
+layers = ['layer_1','layer_2','layer_3','layer_4'] # 데이터의 컬럼명을 정의해줍니다.
+submission = sample_sub.values + pred_test.cpu().numpy() # 파일을 쓸 때 CPU에서 진행합니다.
 
 submission = pd.DataFrame(data=submission,columns=layers)
 submission.to_csv('./test/submission.csv', index_label='id')
