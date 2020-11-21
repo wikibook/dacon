@@ -48,6 +48,9 @@ class LayerNorm(nn.Module):
      - LayerNorm : 블록마다 feature Normalization 사용하여 수렴을 촉진 
      - GELU 활성화 함수 적용 (미분 가능 및 음수 값에 대한 계산 확대)
 """
+
+# 이 SkipConnectionModel 클래스는 앞서 정의한 SkipConnectionModel
+# 클래스에 계층 정규화를 추가한 클래스입니다.
 class SkipConnectionModel(nn.Module):
     """
     >> model = Model(f_in, f_out, 300, 2000, 4000, 7000, 10000)
@@ -60,15 +63,15 @@ class SkipConnectionModel(nn.Module):
         self.ln2 = LayerNorm(4000) # 4000
         self.ln3 = LayerNorm(2000) # 2000
         
-        self.upblock1 = nn.Sequential(nn.Linear(fn_in, 2000),GELU(),nn.BatchNorm1d(2000)) # 2000
-        self.upblock2 = nn.Sequential(nn.Linear(2000,4000),GELU(),nn.BatchNorm1d(4000)) # 4000
-        self.upblock3 = nn.Sequential(nn.Linear(4000,7000), GELU(),nn.BatchNorm1d(7000)) # 7000
-        self.upblock4 = nn.Sequential(nn.Linear(7000,10000),GELU(),nn.BatchNorm1d(10000)) # 10000
+        self.upblock1 = nn.Sequential(nn.Linear(fn_in, 2000),GELU(),nn.BatchNorm1d(2000))
+        self.upblock2 = nn.Sequential(nn.Linear(2000,4000),GELU(),nn.BatchNorm1d(4000))
+        self.upblock3 = nn.Sequential(nn.Linear(4000,7000), GELU(),nn.BatchNorm1d(7000))
+        self.upblock4 = nn.Sequential(nn.Linear(7000,10000),GELU(),nn.BatchNorm1d(10000))
 
-        self.downblock1 = nn.Sequential(nn.Linear(10000, 7000),GELU(),nn.BatchNorm1d(7000)) #7000
-        self.downblock2 = nn.Sequential(nn.Linear(7000, 4000),GELU(),nn.BatchNorm1d(4000)) # 4000
-        self.downblock3 = nn.Sequential(nn.Linear(4000, 2000),GELU(),nn.BatchNorm1d(2000)) # 2000
-        self.downblock4 = nn.Sequential(nn.Linear(2000, 300),GELU(),nn.BatchNorm1d(300)) # 10000
+        self.downblock1 = nn.Sequential(nn.Linear(10000, 7000),GELU(),nn.BatchNorm1d(7000))
+        self.downblock2 = nn.Sequential(nn.Linear(7000, 4000),GELU(),nn.BatchNorm1d(4000))
+        self.downblock3 = nn.Sequential(nn.Linear(4000, 2000),GELU(),nn.BatchNorm1d(2000))
+        self.downblock4 = nn.Sequential(nn.Linear(2000, 300),GELU(),nn.BatchNorm1d(300))
         
         self.fclayer = nn.Sequential(nn.Linear(300, fn_out))
         self.dropout = nn.Dropout(0.1)
@@ -78,8 +81,9 @@ class SkipConnectionModel(nn.Module):
         upblock2_out = self.upblock2(upblock1_out)
         upblock3_out = self.upblock3(upblock2_out)
         upblock4_out = self.upblock4(upblock3_out)
-        
-        downblock1_out = self.downblock1(self.ln(upblock4_out)) # 계층 정규화 적용.
+
+        # upblock에서 나온 결괏값들의 정규화를 진행합니다.
+        downblock1_out = self.downblock1(self.ln(upblock4_out))
         skipblock1 = downblock1_out + upblock3_out
         downblock2_out = self.downblock2(self.ln1(skipblock1))
         skipblock2 = downblock2_out + upblock2_out
