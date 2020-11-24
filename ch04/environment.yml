@@ -1,7 +1,7 @@
 name: store_amount_prediction
 dependencies:
   - python=3.7
-  - rpy2==2.9.4
+  - r::rpy2==2.9.4
   - jupyter
   - notebook
   - pip
