@@ -4,3 +4,4 @@ geopy
 scikit-learn
 xgboost
 lightgbm
+tqdm
