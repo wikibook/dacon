@@ -4,7 +4,7 @@
 * 예제 코드
   + [eda.ipynb](eda.ipynb)
     - 6.2. 탐색적 데이터 분석
-  + [evaluation.ipynb]evaluation.ipynb)
+  + [evaluation.ipynb](evaluation.ipynb)
     - 6.3. 데이터 전처리
     - 6.4. 모델 구축과 검증
     - 6.5. 성능 향상을 위한 방법
