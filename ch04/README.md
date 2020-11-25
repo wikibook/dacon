@@ -1,6 +1,6 @@
 # 4장 상점 신용카드 매출 예측
 
-* 실습에 필요한 패키지: [environment.yml](environment.yml)
+* 실습 환경: [environment.yml](environment.yml)
 * 예제 코드
   + [problem.ipynb](problem.ipynb)
     - 4.1 문제 정의
