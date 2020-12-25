@@ -8,7 +8,7 @@
     - 3.3 데이터 전처리
     - 3.4 모델 구축과 검증
   + [jeju_life_location.ipynb](jeju_life_location.ipynb)
-    - 3.3.2.2 jeju_financial_life_data를 활용한 변수
+    - 행정구역 이름 추출
   + [submission.ipynb](submission.ipynb)
     - 3.5 성능 향상을 위한 방법
 
