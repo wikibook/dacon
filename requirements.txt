@@ -1,4 +1,4 @@
 jupyter
 notebook
-numpy
+numpy==1.19.3  # Workaround for issue https://tinyurl.com/y3dm3h86
 seaborn<=0.11
