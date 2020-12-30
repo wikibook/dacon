@@ -6,7 +6,7 @@ from src.utils import TestDataset
 from torch.utils.data import DataLoader
 
 # 모델 평가 시 GPU를 사용하기 위해서 설정.
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # 테스트 데이터 위치
 path_test = 'data/test.csv'

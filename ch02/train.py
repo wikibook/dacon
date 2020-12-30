@@ -46,7 +46,7 @@ model = SkipConnectionModel(fn_in=226, fn_out=4)  # channel은 모델에서 수�
 
 # GPU 및 CUDA 환경이 마련되어 있다면, 모델 학습을 위해 CUDA 환경을 직접 설정합니다.
 # 그렇지 않은 경우 자동으로 CPU를 설정하게 됩니다.
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # 모델을 GPU 메모리에 올립니다. gpu가 없는 환경은 자동으로 cpu가 설정됩니다.
 model = model.to(device) 
